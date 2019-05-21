@@ -5,6 +5,7 @@
 /////////////////////////////////////////
 
 // config
+let map;
 let cursor;
 let GameName = 'TowerDefense';
 
@@ -12,9 +13,12 @@ let GameName = 'TowerDefense';
 // init
 function setup() {
     // creation d'un canvas à taille de la fenêtre
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(1200, 600);
 
     cursorObject = new Cursor();
+
+    mapObject = new Map();
+
 }
 
 function draw() {
@@ -25,7 +29,10 @@ function draw() {
     textAlign(CENTER);
     fill(255);
     textSize(32);
-    text(GameName, windowWidth/2, 45);
+    text(GameName, 0, 45);
+
+    // MAP
+    mapObject.show();
 
 
     // mis à jour curseur
@@ -33,7 +40,10 @@ function draw() {
     cursorObject.show();
 }
 
-// gestion du resize de la fenêtre
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
+function mousePressed() {
+    cursorObject.clicked();
+}
+
+function mouseReleased() {
+    cursorObject.released();
 }

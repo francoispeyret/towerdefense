@@ -11,16 +11,118 @@
             padding: 0;
             margin: 0;
             font-size: 0;
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 8px;
+            background-color: #444; /* or add it to the track */
+        }
+
+        /* Add a thumb */
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
         }
 
         canvas {
             cursor: none;
+            margin: 0 auto;
+            display: block;
         }
+
+
+        #interface {
+            z-index: 15;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: calc(100% - 200px);
+            padding-bottom: 40px;
+            font-size: 16px;
+        }
+
+        #interface * {
+            font-size: 16px;
+        }
+
+        #interface > * {
+            width: calc(33.333% - 40px);
+            margin: 0 20px;
+            height: 100%;
+            float: left;
+            background: #333;
+            color: #fff;
+            padding: 30px;
+            overflow-y: scroll;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
     </style>
 </head>
 <body>
     <script src="./js/p5.js"></script>
     <script src="./js/cursor.js"></script>
+    <script src="./js/map.js"></script>
     <script src="./js/core.js"></script>
+
+    <div id="interface">
+        <div id="menu">
+            <ul>
+                <li>Pause</li>
+                <li>Jouer</li>
+            </ul>
+        </div>
+        <div id="stats">
+            <ul>
+                <li>vague:</li>
+                <li>vie:</li>
+                <li>bitcoin:</li>
+            </ul>
+        </div>
+        <div id="shop">
+            <ul>
+                <li>
+                    Tour 1
+                    <ul>
+                        <li>Acheter</li>
+                        <li>Améliorer</li>
+                    </ul>
+                </li>
+                <li>
+                    Tour 2
+                    <ul>
+                        <li>Acheter</li>
+                        <li>Améliorer</li>
+                    </ul>
+                </li>
+                <li>
+                    Tour 3
+                    <ul>
+                        <li>Acheter</li>
+                        <li>Améliorer</li>
+                    </ul>
+                </li>
+                <li>
+                    Tour 4
+                    <ul>
+                        <li>Acheter</li>
+                        <li>Améliorer</li>
+                    </ul>
+                </li>
+                <li>
+                    Tour 5
+                    <ul>
+                        <li>Acheter</li>
+                        <li>Améliorer</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
