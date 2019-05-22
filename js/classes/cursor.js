@@ -21,12 +21,17 @@ class Cursor {
     clicked() {
         this.w = 50;
 
-        mapObject.setValueCase(this.x, this.y);
-
+        mapObject.setHoverCase(this.x, this.y);
     }
 
     released() {
         this.w = 12;
+
+        mapObject.setValueCase(this.x, this.y);
+    }
+
+    moved() {
+        mapObject.setHoverCase(this.x, this.y);
     }
 
 }

@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TowerDefense</title>
     <style>
+        body {
+            background: #000;
+        }
+
         * {
             padding: 0;
             margin: 0;
@@ -59,22 +63,36 @@
         }
 
         ul {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        ul ul {
             padding-left: 20px;
+        }
+
+        li label {
+            display: inline-block;
+        }
+
+        nav {
+            display: inline-block;
         }
 
     </style>
 </head>
 <body>
     <script src="./js/p5.js"></script>
-    <script src="./js/cursor.js"></script>
-    <script src="./js/map.js"></script>
+    <script src="./js/classes/cursor.js"></script>
+    <script src="./js/classes/case.js"></script>
+    <script src="./js/classes/map.js"></script>
     <script src="./js/core.js"></script>
 
     <div id="interface">
         <div id="menu">
             <ul>
-                <li>Pause</li>
-                <li>Jouer</li>
+                <li><button>Pause</button></li>
+                <li><button>Jouer</button></li>
             </ul>
         </div>
         <div id="stats">
@@ -87,39 +105,24 @@
         <div id="shop">
             <ul>
                 <li>
-                    Tour 1
-                    <ul>
-                        <li>Acheter</li>
-                        <li>Améliorer</li>
-                    </ul>
+                    <label>Tour 1</label>
+                    <nav><button>Acheter</button><button>Améliorer</button></nav>
                 </li>
                 <li>
-                    Tour 2
-                    <ul>
-                        <li>Acheter</li>
-                        <li>Améliorer</li>
-                    </ul>
+                    <label>Tour 2</label>
+                    <nav><button>Acheter</button><button>Améliorer</button></nav>
                 </li>
                 <li>
-                    Tour 3
-                    <ul>
-                        <li>Acheter</li>
-                        <li>Améliorer</li>
-                    </ul>
+                    <label>Tour 3</label>
+                    <nav><button>Acheter</button><button>Améliorer</button></nav>
                 </li>
                 <li>
-                    Tour 4
-                    <ul>
-                        <li>Acheter</li>
-                        <li>Améliorer</li>
-                    </ul>
+                    <label>Tour 4</label>
+                    <nav><button>Acheter</button><button>Améliorer</button></nav>
                 </li>
                 <li>
-                    Tour 5
-                    <ul>
-                        <li>Acheter</li>
-                        <li>Améliorer</li>
-                    </ul>
+                    <label>Tour 5</label>
+                    <nav><button>Acheter</button><button>Améliorer</button></nav>
                 </li>
             </ul>
         </div>

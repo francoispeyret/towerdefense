@@ -19,6 +19,8 @@ function setup() {
 
     mapObject = new Map();
 
+    mapObject.init();
+
 }
 
 function draw() {
@@ -46,4 +48,8 @@ function mousePressed() {
 
 function mouseReleased() {
     cursorObject.released();
+}
+
+function mouseMoved() {
+    cursorObject.moved();
 }
