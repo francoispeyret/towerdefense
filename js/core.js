@@ -21,6 +21,8 @@ function setup() {
 
     mapObject.init();
 
+    lifeObject = new Life('life',0,10);
+    console.log(lifeObject);
 }
 
 function draw() {

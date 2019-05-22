@@ -34,15 +34,17 @@ class Map {
 
     getCibleCoor(x,y) {
         return {
-            x: Math.floor(x / this.w),
-            y: Math.floor(y / this.h)
+            x: Math.floor(x / this.w) >= 0 && Math.floor(x / this.w) < this.cases[0].length ? Math.floor(x / this.w) : false,
+            y: Math.floor(y / this.h) >= 0 && Math.floor(y / this.h) < this.cases.length ? Math.floor(y / this.h) : false
         };
     }
 
     setValueCase(x,y) {
         const cible = this.getCibleCoor(x,y);
-        if(typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
-            this.cases[cible.y][cible.x].setValue(2);
+        if(cible.x !== false && cible.y !== false) {
+            if(typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
+                this.cases[cible.y][cible.x].setValue(2);
+            }
         }
     }
 
@@ -53,8 +55,10 @@ class Map {
                 this.cases[y][x].setHover(false);
             }
         }
-        if(typeof this.cases[cible.y][cible.x].hovered !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
-            this.cases[cible.y][cible.x].setHover(true);
+        if(cible.x !== false && cible.y !== false) {
+            if(typeof this.cases[cible.y][cible.x].hovered !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
+                this.cases[cible.y][cible.x].setHover(true);
+            }
         }
     }
 
