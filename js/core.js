@@ -25,15 +25,22 @@ function setup() {
     mapObject.init();
 
 
+    lifeObject = new Life('life',0,10);
+    lifeObject.init();
 
-    lifeObject  = new Life('life',0,10);
+    waveObject = new Wave('Wave',1,99);
+    waveObject.init();
+
+    coinObject = new Coin('Coin',25,0);
+    coinObject.init();
+
+
     timerObject = new Timer(0,0);
     enemyObject = new Enemy(10);
 }
 
 function draw() {
     background(30, 30, 30);
-
 
     // MAP
     mapObject.show();
@@ -52,6 +59,8 @@ function draw() {
             p--;
         }
     }
+
+    console.log(particules.length);
 
     // mis à jour curseur
     cursorObject.update();
