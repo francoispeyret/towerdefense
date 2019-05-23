@@ -27,7 +27,7 @@ class Cursor {
     released() {
         this.w = 12;
 
-        mapObject.setValueCase(this.x, this.y);
+        // mapObject.setValueCase(this.x, this.y);
     }
 
     moved() {

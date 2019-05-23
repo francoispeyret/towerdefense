@@ -7,6 +7,7 @@
 // config
 let map;
 let cursor;
+let particules = [];
 let GameName = 'TowerDefense';
 
 
@@ -38,6 +39,22 @@ function draw() {
     // MAP
     mapObject.show();
 
+    // Particules
+    for(let p = 0; p < particules.length; p++) {
+        particules[p].show();
+        particules[p].update();
+        if(
+            particules[p].getPosition().x + particules[p].w < 0 ||
+            particules[p].getPosition().x - particules[p].w > width ||
+            particules[p].getPosition().y + particules[p].w < 0 ||
+            particules[p].getPosition().y - particules[p].w > height
+        ) {
+            particules.splice(p,1);
+            p--;
+        }
+    }
+
+    console.log(particules.length);
 
     // mis à jour curseur
     cursorObject.update();
@@ -46,6 +63,7 @@ function draw() {
 
 function mousePressed() {
     cursorObject.clicked();
+    particules.push(new Particule(cursorObject.x,cursorObject.y,p5.Vector.random2D(),'test'));
 }
 
 function mouseReleased() {
