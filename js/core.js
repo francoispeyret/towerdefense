@@ -22,8 +22,8 @@ function setup() {
 
     mapObject.init();
 
-    lifeObject = new Life('life',0,10);
-    console.log(lifeObject);
+    lifeObject  = new Life('life',0,10);
+    timerObject = new Timer(0,0);
 }
 
 function draw() {
@@ -59,6 +59,7 @@ function draw() {
     // mis à jour curseur
     cursorObject.update();
     cursorObject.show();
+    timerObject.show();
 }
 
 function mousePressed() {
