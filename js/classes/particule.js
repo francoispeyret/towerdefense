@@ -1,6 +1,6 @@
 class Particule {
-    constructor(x,y,v,type) {
-        this.p = createVector(x,y);
+    constructor(o,v,type) {
+        this.p = o;
         this.v = v;
 
         this.type = type;
@@ -18,10 +18,18 @@ class Particule {
     }
 
     update() {
+        //this.p = p5.Vector.lerp(this.p, this.v, 5);
         this.p.add(this.v);
+
+        //let angle = this.p.angleBetween(this.v);
     }
 
     getPosition() {
+        if(typeof this.p === 'undefined') {
+            console.error('Particule avec une position mal déféni...');
+            this.p = createVector(0,0);
+            return false;
+        }
         return this.p;
     }
 

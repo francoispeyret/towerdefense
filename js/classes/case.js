@@ -32,6 +32,10 @@ class Case {
         }
     }
 
+    update() {
+        // seulement pour les Tower en théorie...
+    }
+
     setValue(val) {
         this.value = val;
     }

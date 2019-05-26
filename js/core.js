@@ -54,8 +54,6 @@ function draw() {
         }
     }
 
-    console.log(particules.length);
-
     // mis à jour curseur
     cursorObject.update();
     cursorObject.show();
@@ -63,8 +61,8 @@ function draw() {
 }
 
 function mousePressed() {
-    cursorObject.clicked();
-    particules.push(new Particule(cursorObject.x,cursorObject.y,p5.Vector.random2D(),'test'));
+    cursorObject.pressed();
+    //particules.push(new Particule(cursorObject.x,cursorObject.y,p5.Vector.random2D(),'test'));
 }
 
 function mouseReleased() {

@@ -18,7 +18,7 @@ class Cursor {
         this.y = mouseY;
     }
 
-    clicked() {
+    pressed() {
         this.w = 50;
 
         mapObject.setHoverCase(this.x, this.y);
@@ -27,7 +27,7 @@ class Cursor {
     released() {
         this.w = 12;
 
-        // mapObject.setValueCase(this.x, this.y);
+        mapObject.setValueCase(this.x, this.y,2);
     }
 
     moved() {

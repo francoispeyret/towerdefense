@@ -28,6 +28,7 @@ class Map {
         for(let y = 0; y < this.cases.length; y++) {
             for(let x = 0; x < this.cases[y].length; x++) {
                 this.cases[y][x].show();
+                this.cases[y][x].update();
             }
         }
     }
@@ -39,13 +40,19 @@ class Map {
         };
     }
 
-    setValueCase(x,y) {
+    setValueCase(x,y,value) {
         const cible = this.getCibleCoor(x,y);
         if(cible.x !== false && cible.y !== false) {
+            if(value===2) {
+                this.cases[cible.y][cible.x] = new Tower(cible.x, cible.y, value);
+                return true;
+            }
             if(typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
-                this.cases[cible.y][cible.x].setValue(2);
+                this.cases[cible.y][cible.x].setValue(value);
+                return true;
             }
         }
+        return false;
     }
 
     setHoverCase(x,y) {
