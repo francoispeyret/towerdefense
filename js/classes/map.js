@@ -43,16 +43,10 @@ class Map {
     setValueCase(x,y,value) {
         const cible = this.getCibleCoor(x,y);
         if(cible.x !== false && cible.y !== false) {
-            if(value===2) {
+            if(value===2 && typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
                 this.cases[cible.y][cible.x] = new Tower(cible.x, cible.y, value);
-                return true;
-            }
-            if(typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
-                this.cases[cible.y][cible.x].setValue(value);
-                return true;
             }
         }
-        return false;
     }
 
     setHoverCase(x,y) {
@@ -63,7 +57,7 @@ class Map {
             }
         }
         if(cible.x !== false && cible.y !== false) {
-            if(typeof this.cases[cible.y][cible.x].hovered !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
+            if(typeof this.cases[cible.y][cible.x].hovered !== 'undefined') {
                 this.cases[cible.y][cible.x].setHover(true);
             }
         }

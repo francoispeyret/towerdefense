@@ -27,7 +27,12 @@ class Case {
 
 
         if(this.hovered) {
-            fill(0,200,0,120);
+            if(this.value===0) {
+                fill(0,200,0,120);
+            }
+            else {
+                fill(200,50,50,70);
+            }
             rect(this.x*this.w, this.y*this.h, this.w, this.h);
         }
     }
@@ -37,7 +42,9 @@ class Case {
     }
 
     setValue(val) {
-        this.value = val;
+        if(this.value===0) {
+            this.value = val;
+        }
     }
 
     setHover(state) {
