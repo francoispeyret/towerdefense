@@ -24,6 +24,7 @@ function setup() {
 
     lifeObject  = new Life('life',0,10);
     timerObject = new Timer(0,0);
+    enemyObject = new Enemy(10);
 }
 
 function draw() {
@@ -58,6 +59,7 @@ function draw() {
     cursorObject.update();
     cursorObject.show();
     timerObject.show();
+    enemyObject.show();
 }
 
 function mousePressed() {

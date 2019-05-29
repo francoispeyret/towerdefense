@@ -16,7 +16,7 @@ class Case {
         stroke(0);
         strokeWeight(0.25);
 
-        if(this.value === 1) {
+        if(this.value === 1 || this.value === 4) {
             fill(255);
         } else if(this.value === 0) {
             fill(50);
