@@ -57,6 +57,7 @@ function draw() {
     cursorObject.update();
     cursorObject.show();
     timerObject.show();
+    enemyObject.update();
     enemyObject.show();
 }
 
