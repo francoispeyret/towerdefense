@@ -5,8 +5,10 @@
 /////////////////////////////////////////
 
 // config
-let map;
-let cursor;
+let mapObject;
+let cursorObject;
+let lifeObject;
+let timerObject;
 let particules = [];
 let GameName = 'TowerDefense';
 
@@ -18,9 +20,11 @@ function setup() {
 
     cursorObject = new Cursor();
 
-    mapObject = new Map();
+    mapObject = new Mapping();
 
     mapObject.init();
+
+
 
     lifeObject  = new Life('life',0,10);
     timerObject = new Timer(0,0);
@@ -30,12 +34,6 @@ function setup() {
 function draw() {
     background(30, 30, 30);
 
-
-    // titre
-    textAlign(CENTER);
-    fill(255);
-    textSize(32);
-    text(GameName, 0, 45);
 
     // MAP
     mapObject.show();

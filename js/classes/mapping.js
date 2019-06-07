@@ -1,4 +1,4 @@
-class Map {
+class Mapping {
 
     constructor() {
         // [y[x,x,x],y[x,x,x],...]

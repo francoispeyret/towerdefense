@@ -4,7 +4,7 @@ class Case {
         this.x = x;
         this.y = y;
         this.w = 75;
-        this.h = 75;
+        this.h = this.w;
 
         this.value = value || 0;
 
