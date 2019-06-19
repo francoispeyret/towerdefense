@@ -10,9 +10,14 @@ class Enemy {
 
         // Init enemy position
         this.findNextPosition(true);
-        this.lastMove = {
+        this.doMove = false;
+        this.nextMove = {
             x: 0,
             y: 0
+        };
+        this.lastMove = {
+            x: Math.floor(this.x / mapObject.w),
+            y: Math.floor(this.y / mapObject.h)
         }
     }
 
@@ -24,6 +29,26 @@ class Enemy {
     update() {
         if (frameCount % this.cycle === 0) {
             this.findNextPosition(false);
+            //this.x = (this.lastMove.x + this.nextMove.x) * mapObject.w + mapObject.w / 2;
+            //this.y = (this.lastMove.y + this.nextMove.y) * mapObject.h + mapObject.h / 2;
+        } else {
+        }
+        this.animeMove();
+        console.log(frameCount);
+    }
+
+    animeMove() {
+        if(this.nextMove.y > 0) {
+            this.y += mapObject.w/this.cycle;
+        }
+        if(this.nextMove.y < 0) {
+            this.y -= mapObject.w/this.cycle;
+        }
+        if(this.nextMove.x > 0) {
+            this.x += mapObject.h/this.cycle;
+        }
+        if(this.nextMove.x < 0) {
+            this.x -= mapObject.h/this.cycle;
         }
     }
 
@@ -43,32 +68,36 @@ class Enemy {
                 Math.floor(this.x / mapObject.w),
                 Math.floor(this.y / mapObject.w)
             );
-            let doMove = false;
+            this.lastMove = {
+                x: Math.floor(this.x / mapObject.w),
+                y: Math.floor(this.y / mapObject.h)
+            };
+            console.log(this.lastMove);
+            this.doMove = false;
             if(
-                (this.lastMove.x !== 0 || this.lastMove.y !== 0) &&
-                this.checkCaseOfMapObject(position,this.lastMove)
+                (this.nextMove.x !== 0 || this.nextMove.y !== 0) &&
+                this.checkCaseOfMapObject(position,this.nextMove)
             ) {
-                doMove = true;
-            } else if (this.lastMove.y >= 0 && this.checkCaseOfMapObject(position,{x:0,y:1})) {
-                this.lastMove.x = 0,
-                this.lastMove.y = 1;
-                doMove = true;
-            } else if (this.lastMove.y <= 0 && this.checkCaseOfMapObject(position,{x:0,y:-1})) {
-                this.lastMove.x = 0,
-                this.lastMove.y = -1;
-                doMove = true;
-            } else if (this.lastMove.x <= 0 && this.checkCaseOfMapObject(position,{x:1,y:0})) {
-                this.lastMove.x = 1,
-                this.lastMove.y = 0;
-                doMove = true;
-            } else if (this.lastMove.x >= 0 && this.checkCaseOfMapObject(position,{x:-1,y:0})) {
-                this.lastMove.x = -1,
-                this.lastMove.y = 0;
-                doMove = true;
-            }
-            if(doMove) {
-                this.x = (position.x+this.lastMove.x) * mapObject.w + mapObject.w / 2;
-                this.y = (position.y+this.lastMove.y) * mapObject.h + mapObject.h / 2;
+                this.doMove = true;
+            } else if (this.nextMove.y >= 0 && this.checkCaseOfMapObject(position,{x:0,y:1})) {
+                this.nextMove.x = 0;
+                this.nextMove.y = 1;
+                this.doMove = true;
+            } else if (this.nextMove.y <= 0 && this.checkCaseOfMapObject(position,{x:0,y:-1})) {
+                this.nextMove.x = 0;
+                this.nextMove.y = -1;
+                this.doMove = true;
+            } else if (this.nextMove.x <= 0 && this.checkCaseOfMapObject(position,{x:1,y:0})) {
+                this.nextMove.x = 1;
+                this.nextMove.y = 0;
+                this.doMove = true;
+            } else if (this.nextMove.x >= 0 && this.checkCaseOfMapObject(position,{x:-1,y:0})) {
+                this.nextMove.x = -1;
+                this.nextMove.y = 0;
+                this.doMove = true;
+            } else {
+                this.nextMove.x = 0;
+                this.nextMove.y = 0;
             }
         }
     }

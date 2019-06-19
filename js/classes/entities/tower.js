@@ -25,12 +25,12 @@ class Tower extends Case {
         ellipse(this.x * this.w + this.w / 2, this.y * this.w + this.w / 2, this.w * .5, this.w * .5);
 
         // lazer
-        push();
+        /*push();
         stroke(255,0,0);
         strokeWeight(1);
         line(this.x * this.w + this.w / 2, this.y * this.w + this.w / 2, this.dir.x, this.dir.y);
         pop();
-
+        */
     }
 
     update() {
@@ -40,14 +40,14 @@ class Tower extends Case {
                 this.x * this.w + this.w / 2,
                 this.y * this.w + this.w / 2
             );
-            let cible = this.findEnemy(origine);
+            let target = this.findEnemy(origine);
 
-            if(typeof cible.x !== 'undefined') {
-                this.dir.set(cible.x * this.w + this.w / 2, cible.y * this.w + this.w / 2);
+            if(typeof target.x !== 'undefined') {
+                this.dir.set(target.x * this.w + this.w / 2, target.y * this.w + this.w / 2);
                 particules.push(
                     new Particule(
                         origine,
-                        cible.limit(this.speed),
+                        target.limit(this.speed),
                         'test'
                     )
                 );
@@ -58,14 +58,18 @@ class Tower extends Case {
     }
 
     findEnemy(ori) {
-        let enemyPos   = createVector(enemyObject.x,enemyObject.y);
-        let currentPos = createVector(this.x * this.w + this.w / 2,this.y * this.w + this.w / 2);
-        let distance   = currentPos.dist(enemyPos);
-        if (distance < this.attackDistance) {
-            return createVector(
-                enemyObject.x - ori.x,
-                enemyObject.y - ori.y
-            );
+        if(enemies.length) {
+            for(let e = 0; e < enemies.length; e++) {
+                let enemyPos   = createVector(enemies[e].x,enemies[e].y);
+                let currentPos = createVector(this.x * this.w + this.w / 2,this.y * this.w + this.w / 2);
+                let distance   = currentPos.dist(enemyPos);
+                if (distance < this.attackDistance) {
+                    return createVector(
+                        enemies[e].x - ori.x,
+                        enemies[e].y - ori.y
+                    );
+                }
+            }
         }
         return false;
     }

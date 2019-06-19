@@ -9,8 +9,12 @@ let mapObject;
 let cursorObject;
 let lifeObject;
 let timerObject;
+let waveObject;
 let particules = [];
+let enemies = [];
 let GameName = 'TowerDefense';
+
+let SpeedDsitance = 1.55;
 
 
 // init
@@ -24,7 +28,6 @@ function setup() {
 
     mapObject.init();
 
-
     lifeObject = new Life('life',0,10);
     lifeObject.init();
 
@@ -36,10 +39,12 @@ function setup() {
 
 
     timerObject = new Timer(0,0);
-    enemyObject = new Enemy(10);
 }
 
 function draw() {
+    // STATS
+    waveObject.upadte();
+
     background(30, 30, 30);
 
     // MAP
@@ -60,14 +65,17 @@ function draw() {
         }
     }
 
-    console.log(particules.length);
 
     // mis à jour curseur
     cursorObject.update();
     cursorObject.show();
     timerObject.show();
-    enemyObject.update();
-    enemyObject.show();
+
+    // enemies
+    for(let e = 0; e < enemies.length; e++) {
+        enemies[e].update();
+        enemies[e].show();
+    }
 }
 
 function mousePressed() {
