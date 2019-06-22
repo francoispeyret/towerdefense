@@ -19,6 +19,7 @@ let SpeedDsitance = 1.55;
 
 // init
 function setup() {
+    frameRate(60);
     // creation d'un canvas à taille de la fenêtre
     createCanvas(1200, 600);
 

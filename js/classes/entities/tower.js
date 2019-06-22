@@ -7,12 +7,10 @@ class Tower extends Case {
         this.attack = 20;
         this.speed = 5;
         this.cycle = 15;
+        this.anticipation = this.speed * this.cycle;
         this.attackDistance = this.w*3;
 
-        this.dir = createVector(
-            this.x * this.w + this.w / 2,
-            this.y * this.w + this.w / 2
-        );
+        this.dir = this.center.copy();
 
     }
 
@@ -22,7 +20,7 @@ class Tower extends Case {
             rect(this.x * this.w, this.y * this.h, this.w, this.h);
         }
         fill(200, 200, 200);
-        ellipse(this.x * this.w + this.w / 2, this.y * this.w + this.w / 2, this.w * .5, this.w * .5);
+        ellipse(this.center.x, this.center.y, this.w * .5, this.w * .5);
 
         // lazer
         /*push();
@@ -36,10 +34,7 @@ class Tower extends Case {
     update() {
         if (frameCount % this.cycle === 0) {
 
-            let origine = createVector(
-                this.x * this.w + this.w / 2,
-                this.y * this.w + this.w / 2
-            );
+            let origine = this.center.copy();
             let target = this.findEnemy(origine);
 
             if(typeof target.x !== 'undefined') {
@@ -65,8 +60,8 @@ class Tower extends Case {
                 let distance   = currentPos.dist(enemyPos);
                 if (distance < this.attackDistance) {
                     return createVector(
-                        enemies[e].x - ori.x,
-                        enemies[e].y - ori.y
+                        enemies[e].x + enemies[e].nextMove.x*this.anticipation - ori.x,
+                        enemies[e].y + enemies[e].nextMove.y*this.anticipation - ori.y
                     );
                 }
             }

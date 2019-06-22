@@ -9,6 +9,12 @@ class Case {
         this.value = value || 0;
 
         this.hovered = false;
+
+
+        this.center = createVector(
+            this.x * this.w + this.w / 2,
+            this.y * this.h + this.h / 2
+        );
     }
 
     show() {

@@ -4,9 +4,10 @@ class Enemy {
 
         this.x = -100;
         this.y = -100;
-        this.life = life;
+        this.w    = 50;
         this.cycle = 40;
-        this.w    = 75;
+        this.life = life;
+        this.lifeMax = life;
 
         // Init enemy position
         this.findNextPosition(true);
@@ -22,19 +23,37 @@ class Enemy {
     }
 
     show() {
-        fill(0, 200, 0, 30);
+        noStroke();
+        fill(0, 150, 0);
         ellipse(this.x, this.y, this.w, this.w);
+
+        // barre de vie
+        noFill();
+        strokeWeight(4);
+        if(this.life > 0)
+            stroke(0,255,0);
+        else
+            stroke(255,0,0);
+        arc(this.x,this.y,this.w,this.w,
+            0,
+            map(this.life, 0, this.lifeMax, 0, TWO_PI),
+            OPEN
+        );
+        /*stroke(255,0,0);
+        rect(this.x - this.w / 2, this.y, this.w, 8);
+        fill(255,0,0);
+        rect(this.x - this.w / 2 + 1, this.y +1 , map(this.life, 0, this.lifeMax, 0, this.w-1) ,6)
+        */
     }
 
     update() {
+        this.updateLife(1);
         if (frameCount % this.cycle === 0) {
             this.findNextPosition(false);
             //this.x = (this.lastMove.x + this.nextMove.x) * mapObject.w + mapObject.w / 2;
             //this.y = (this.lastMove.y + this.nextMove.y) * mapObject.h + mapObject.h / 2;
-        } else {
         }
         this.animeMove();
-        console.log(frameCount);
     }
 
     animeMove() {
@@ -113,6 +132,12 @@ class Enemy {
     updateLife(damage) {
         if (this.life > 0) {
             this.life -= damage;
+        } else {
+            //this.die();
         }
+    }
+
+    die() {
+        enemies.splice(p,1);
     }
 }
