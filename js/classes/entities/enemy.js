@@ -50,7 +50,6 @@ class Enemy {
             //this.y = (this.lastMove.y + this.nextMove.y) * mapObject.h + mapObject.h / 2;
         }
         this.animeMove();
-        this.updateLife(1);
     }
 
     animeMove() {
@@ -84,10 +83,10 @@ class Enemy {
                 Math.floor(this.x / mapObject.w),
                 Math.floor(this.y / mapObject.w)
             );
-            this.lastMove = {
-                x: Math.floor(this.x / mapObject.w),
-                y: Math.floor(this.y / mapObject.h)
-            };
+            this.lastMove = createVector(
+                Math.floor(this.x / mapObject.w),
+                Math.floor(this.y / mapObject.h)
+            );
             this.doMove = false;
             if(
                 (this.nextMove.x !== 0 || this.nextMove.y !== 0) &&

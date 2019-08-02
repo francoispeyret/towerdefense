@@ -42,7 +42,7 @@ class Tower extends Case {
             if(typeof target.x !== 'undefined') {
                 this.dir.set(target.x * this.w + this.w / 2, target.y * this.w + this.w / 2);
                 particules.push(
-                    new Particule(
+                    new Bullet(
                         origine,
                         target.limit(this.speed),
                         'test'

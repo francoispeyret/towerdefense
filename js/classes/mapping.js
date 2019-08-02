@@ -4,17 +4,6 @@ class Mapping {
         this.levelsFilesUrl = './levels.json';
         this.cases = null;
         this.getLevel(1);
-        // [y[x,x,x],y[x,x,x],...]
-        /*this.cases = [
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        ];*/
         this.w = 75;
         this.h = 75;
     }
@@ -26,7 +15,7 @@ class Mapping {
                     this.cases[y][x] = new Case(x,y,this.cases[y][x]);
                 }
             }
-            loop();
+            gameState = 'Playing';
         }
     }
 
@@ -49,10 +38,12 @@ class Mapping {
     }
 
     setValueCase(x,y,value) {
-        const cible = this.getCibleCoor(x,y);
-        if(cible.x !== false && cible.y !== false) {
-            if(value===2 && typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
-                this.cases[cible.y][cible.x] = new Tower(cible.x, cible.y, value);
+        if(this.cases !== null) {
+            const cible = this.getCibleCoor(x,y);
+            if(cible.x !== false && cible.y !== false) {
+                if(value===2 && typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
+                    this.cases[cible.y][cible.x] = new Tower(cible.x, cible.y, value);
+                }
             }
         }
     }
@@ -89,7 +80,7 @@ class Mapping {
                             return true;
                         }
                     } else {
-                        console.error(levelNumber.toString() + " is undefined in loaded JSON");
+                        gameState = 'Ending';
                     }
 
                 } catch(err) {
@@ -105,7 +96,7 @@ class Mapping {
     }
 
     setNewLevelMap(levelNumber) {
-        noLoop();
+        gameState = 'Loading';
         this.cases = null;
         try {
             this.getLevel(levelNumber);

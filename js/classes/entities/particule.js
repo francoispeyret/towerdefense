@@ -18,10 +18,7 @@ class Particule {
     }
 
     update() {
-        //this.p = p5.Vector.lerp(this.p, this.v, 5);
         this.p.add(this.v);
-
-        //let angle = this.p.angleBetween(this.v);
     }
 
     getPosition() {

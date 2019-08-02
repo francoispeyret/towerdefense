@@ -33,13 +33,12 @@
         }
 
         canvas {
-            cursor: none;
             margin: 0 auto;
             display: block;
             width: 100vw !important;
-            max-width: calc(175vh - 200px);
+            max-width: calc(175vh - 230px);
             height: auto !important;
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 230px);
         }
 
 
@@ -110,26 +109,12 @@
     </style>
 </head>
 <body>
-    <script src="./js/p5.js"></script>
-    <script src="./js/classes/case.js"></script>
-    <script src="./js/classes/stats/timer.js"></script>
-    <script src="./js/classes/stats/stat.js"></script>
-    <script src="./js/classes/stats/coin.js"></script>
-    <script src="./js/classes/stats/life.js"></script>
-    <script src="./js/classes/stats/wave.js"></script>
-    <script src="./js/classes/stats/stage.js"></script>
-    <script src="./js/classes/control/cursor.js"></script>
-    <script src="./js/classes/entities/enemy.js"></script>
-    <script src="./js/classes/entities/tower.js"></script>
-    <script src="./js/classes/entities/particule.js"></script>
-    <script src="./js/classes/mapping.js"></script>
-    <script src="./js/core.js"></script>
 
     <div id="interface">
         <div id="menu">
             <ul>
-                <li><button class="btn-block">Pause</button></li>
-                <li><button class="btn-block">Jouer</button></li>
+                <li><button class="btn-block" id="stop">Pause</button></li>
+                <li><button class="btn-block" id="play">Jouer</button></li>
             </ul>
         </div>
         <div id="stats">
@@ -162,5 +147,21 @@
             </ul>
         </div>
     </div>
+    <script src="./js/p5.js"></script>
+    <script src="./js/classes/case.js"></script>
+    <script src="./js/classes/stats/timer.js"></script>
+    <script src="./js/classes/stats/stat.js"></script>
+    <script src="./js/classes/stats/coin.js"></script>
+    <script src="./js/classes/stats/life.js"></script>
+    <script src="./js/classes/stats/wave.js"></script>
+    <script src="./js/classes/stats/stage.js"></script>
+    <script src="./js/classes/control/cursor.js"></script>
+    <script src="./js/classes/control/interface.js"></script>
+    <script src="./js/classes/entities/enemy.js"></script>
+    <script src="./js/classes/entities/tower.js"></script>
+    <script src="./js/classes/entities/particule.js"></script>
+    <script src="./js/classes/entities/bullet.js"></script>
+    <script src="./js/classes/mapping.js"></script>
+    <script src="./js/core.js"></script>
 </body>
 </html>

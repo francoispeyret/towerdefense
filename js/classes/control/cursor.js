@@ -20,18 +20,20 @@ class Cursor {
 
     pressed() {
         this.w = 50;
-
-        mapObject.setHoverCase(this.x, this.y);
+        if(typeof mapObject !== 'undefined')
+            mapObject.setHoverCase(this.x, this.y);
     }
 
     released() {
         this.w = 12;
 
-        mapObject.setValueCase(this.x, this.y,2);
+        if(typeof mapObject !== 'undefined')
+            mapObject.setValueCase(this.x, this.y,2);
     }
 
     moved() {
-        mapObject.setHoverCase(this.x, this.y);
+        if(typeof mapObject !== 'undefined')
+            mapObject.setHoverCase(this.x, this.y);
     }
 
 }
