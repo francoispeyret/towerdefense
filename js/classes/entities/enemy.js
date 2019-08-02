@@ -2,6 +2,7 @@ class Enemy {
 
     constructor(life) {
 
+        this.id = parseInt(Math.random(100)*100);
         this.x = -100;
         this.y = -100;
         this.w    = 50;
@@ -34,26 +35,22 @@ class Enemy {
             stroke(0,255,0);
         else
             stroke(255,0,0);
-        arc(this.x,this.y,this.w,this.w,
+        arc(
+            this.x,this.y,this.w,this.w,
             0,
             map(this.life, 0, this.lifeMax, 0, TWO_PI),
             OPEN
         );
-        /*stroke(255,0,0);
-        rect(this.x - this.w / 2, this.y, this.w, 8);
-        fill(255,0,0);
-        rect(this.x - this.w / 2 + 1, this.y +1 , map(this.life, 0, this.lifeMax, 0, this.w-1) ,6)
-        */
     }
 
     update() {
-        this.updateLife(1);
         if (frameCount % this.cycle === 0) {
             this.findNextPosition(false);
             //this.x = (this.lastMove.x + this.nextMove.x) * mapObject.w + mapObject.w / 2;
             //this.y = (this.lastMove.y + this.nextMove.y) * mapObject.h + mapObject.h / 2;
         }
         this.animeMove();
+        this.updateLife(1);
     }
 
     animeMove() {
@@ -91,7 +88,6 @@ class Enemy {
                 x: Math.floor(this.x / mapObject.w),
                 y: Math.floor(this.y / mapObject.h)
             };
-            console.log(this.lastMove);
             this.doMove = false;
             if(
                 (this.nextMove.x !== 0 || this.nextMove.y !== 0) &&
@@ -133,11 +129,19 @@ class Enemy {
         if (this.life > 0) {
             this.life -= damage;
         } else {
-            //this.die();
+            this.die();
         }
     }
 
     die() {
-        enemies.splice(p,1);
+        for(let e = 0; e < enemies.length; e++) {
+            if(
+                typeof enemies[e] !== 'undefined' &&
+                this.id === enemies[e].id
+            ){
+                enemies.splice(e,1);
+                break;
+            }
+        }
     }
 }

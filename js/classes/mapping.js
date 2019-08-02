@@ -1,8 +1,11 @@
 class Mapping {
 
     constructor() {
+        this.levelsFilesUrl = './levels.json';
+        this.cases = null;
+        this.getLevel(1);
         // [y[x,x,x],y[x,x,x],...]
-        this.cases = [
+        /*this.cases = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -11,24 +14,29 @@ class Mapping {
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        ];
+        ];*/
         this.w = 75;
         this.h = 75;
     }
 
     init() {
-        for(let y = 0; y < this.cases.length; y++) {
-            for(let x = 0; x < this.cases[y].length; x++) {
-                this.cases[y][x] = new Case(x,y,this.cases[y][x]);
+        if(this.cases !== null) {
+            for(let y = 0; y < this.cases.length; y++) {
+                for(let x = 0; x < this.cases[y].length; x++) {
+                    this.cases[y][x] = new Case(x,y,this.cases[y][x]);
+                }
             }
+            loop();
         }
     }
 
     show() {
-        for(let y = 0; y < this.cases.length; y++) {
-            for(let x = 0; x < this.cases[y].length; x++) {
-                this.cases[y][x].show();
-                this.cases[y][x].update();
+        if(this.cases !== null) {
+            for(let y = 0; y < this.cases.length; y++) {
+                for(let x = 0; x < this.cases[y].length; x++) {
+                    this.cases[y][x].show();
+                    this.cases[y][x].update();
+                }
             }
         }
     }
@@ -50,16 +58,62 @@ class Mapping {
     }
 
     setHoverCase(x,y) {
-        const cible = this.getCibleCoor(x,y);
-        for(let y = 0; y < this.cases.length; y++) {
-            for(let x = 0; x < this.cases[y].length; x++) {
-                this.cases[y][x].setHover(false);
+        if(this.cases !== null) {
+            const cible = this.getCibleCoor(x,y);
+            for(let y = 0; y < this.cases.length; y++) {
+                for(let x = 0; x < this.cases[y].length; x++) {
+                    this.cases[y][x].setHover(false);
+                }
+            }
+            if(cible.x !== false && cible.y !== false) {
+                if(typeof this.cases[cible.y][cible.x].hovered !== 'undefined') {
+                    this.cases[cible.y][cible.x].setHover(true);
+                }
             }
         }
-        if(cible.x !== false && cible.y !== false) {
-            if(typeof this.cases[cible.y][cible.x].hovered !== 'undefined') {
-                this.cases[cible.y][cible.x].setHover(true);
+    }
+
+    getLevel(levelNumber) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', this.levelsFilesUrl, true);
+        xhr.onload  = function(e) {
+        	if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const data = JSON.parse(xhr.responseText);
+
+                    if(typeof data[levelNumber.toString()] !== 'undefined') {
+                        const levelSelected = data[levelNumber.toString()];
+                        if(typeof levelSelected['cases'] !== 'undefined') {
+                            mapObject.cases = levelSelected['cases'];
+                            mapObject.init();
+                            return true;
+                        }
+                    } else {
+                        console.error(levelNumber.toString() + " is undefined in loaded JSON");
+                    }
+
+                } catch(err) {
+                    console.error(err.message + " in " + xhr.responseText);
+                    return;
+                }
+            } else {
+                console.error('error to loading file', xhr);
             }
+        }
+        xhr.send();
+
+    }
+
+    setNewLevelMap(levelNumber) {
+        noLoop();
+        this.cases = null;
+        try {
+            this.getLevel(levelNumber);
+        } catch (e) {
+            if(e===false) {
+
+            }
+        } finally {
         }
     }
 

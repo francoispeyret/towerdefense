@@ -33,13 +33,16 @@ class Case {
 
 
         if(this.hovered) {
+            strokeWeight(2);
             if(this.value===0) {
-                fill(0,200,0,120);
+                stroke(0,200,0,200);
+                fill(0,200,0,30);
             }
             else {
-                fill(200,50,50,70);
+                stroke(200,50,50,200);
+                fill(200,50,50,30);
             }
-            rect(this.x*this.w, this.y*this.h, this.w, this.h);
+            rect(this.x*this.w + 1, this.y*this.h + 1, this.w - 2, this.h - 2);
         }
     }
 

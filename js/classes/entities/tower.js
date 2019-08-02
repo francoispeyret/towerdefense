@@ -15,6 +15,7 @@ class Tower extends Case {
     }
 
     show() {
+        noStroke();
         if (this.hovered) {
             fill(0, 200, 0, 30);
             rect(this.x * this.w, this.y * this.h, this.w, this.h);
@@ -22,8 +23,9 @@ class Tower extends Case {
         fill(200, 200, 200);
         ellipse(this.center.x, this.center.y, this.w * .5, this.w * .5);
 
+        /*
         // lazer
-        /*push();
+        push();
         stroke(255,0,0);
         strokeWeight(1);
         line(this.x * this.w + this.w / 2, this.y * this.w + this.w / 2, this.dir.x, this.dir.y);

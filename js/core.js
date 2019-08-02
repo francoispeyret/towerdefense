@@ -29,11 +29,14 @@ function setup() {
 
     mapObject.init();
 
+    stageObject = new Stage('Stage',1,0);
+    stageObject.init();
+
+    waveObject = new Wave('Wave',1,2);
+    waveObject.init();
+
     lifeObject = new Life('life',0,10);
     lifeObject.init();
-
-    waveObject = new Wave('Wave',1,99);
-    waveObject.init();
 
     coinObject = new Coin('Coin',25,0);
     coinObject.init();
@@ -44,7 +47,7 @@ function setup() {
 
 function draw() {
     // STATS
-    waveObject.upadte();
+    waveObject.update();
 
     background(30, 30, 30);
 
@@ -66,16 +69,16 @@ function draw() {
         }
     }
 
-
     // mis à jour curseur
     cursorObject.update();
     cursorObject.show();
     timerObject.show();
 
     // enemies
-    for(let e = 0; e < enemies.length; e++) {
-        enemies[e].update();
-        enemies[e].show();
+    for(let enemy of enemies) {
+        enemy.update();
+        if(typeof enemy !== 'undefined')
+            enemy.show();
     }
 }
 
