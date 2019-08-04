@@ -25,22 +25,30 @@ class Enemy {
 
     show() {
         noStroke();
-        fill(0, 150, 0);
+        if(this.life < 1) {
+            fill(255, 0, 0);
+        } else {
+            fill(0,200,0,);
+        }
         ellipse(this.x, this.y, this.w, this.w);
 
         // barre de vie
         noFill();
         strokeWeight(4);
-        if(this.life > 0)
-            stroke(0,255,0);
-        else
-            stroke(255,0,0);
-        arc(
-            this.x,this.y,this.w,this.w,
-            0,
-            map(this.life, 0, this.lifeMax, 0, TWO_PI),
-            OPEN
-        );
+        if(this.life > 1) {
+            if(this.life < this.lifeMax / 5)
+                stroke(255,0,0);
+            else if(this.life < this.lifeMax / 2)
+                stroke(225,200,0);
+            else
+                stroke(0,255,0);
+            arc(
+                this.x,this.y,this.w,this.w,
+                0,
+                map(this.life, 0, this.lifeMax, 0, TWO_PI),
+                OPEN
+            );
+        }
     }
 
     update() {
@@ -138,8 +146,16 @@ class Enemy {
                 typeof enemies[e] !== 'undefined' &&
                 this.id === enemies[e].id
             ){
+                for(let x = 0; x < random(4,7); x++) {
+                    particules.push(new Particule(
+                        createVector(this.x,this.y),
+                        createVector(random(-2,2),random(-2,2)),
+                        'explosion'
+                    ));
+                }
                 enemies.splice(e,1);
-                break;
+                coinObject.incrementValue(this.lifeMax);
+                //break;
             }
         }
     }

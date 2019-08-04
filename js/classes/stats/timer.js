@@ -7,7 +7,8 @@ class Timer {
 
     show() {
 
-        text(this.value, width - 10, 100);
+        text(this.value, width /2, 100);
+        textAlign(LEFT);
         textSize(32);
 
         if (frameCount % 60 === 0) {

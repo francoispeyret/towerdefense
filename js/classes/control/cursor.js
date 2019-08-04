@@ -3,14 +3,12 @@ class Cursor {
     constructor() {
         this.x =     mouseX;
         this.y =     mouseY;
-        this.w =     12;
-        this.color = color(255, 255, 255);
+        this.enabled = false;
+        this.placeTowerLevelCurrent = null;
     }
 
     show() {
-        // mouse cursor
-        fill(255);
-        ellipse(this.x, this.y, this.w, this.w);
+
     }
 
     update() {
@@ -19,21 +17,38 @@ class Cursor {
     }
 
     pressed() {
-        this.w = 50;
-        if(typeof mapObject !== 'undefined')
-            mapObject.setHoverCase(this.x, this.y);
     }
 
     released() {
-        this.w = 12;
-
-        if(typeof mapObject !== 'undefined')
-            mapObject.setValueCase(this.x, this.y,2);
+        if(this.enabled===true) {
+            this.enabled = false;
+            removeActiveBuying();
+            const level = this.placeTowerLevelCurrent;
+            if(getPrice(level) <= coinObject.value && coinObject.value>0) {
+                console.log(getPrice(level));
+                coinObject.incrementValue(-getPrice(level));
+                if(typeof mapObject !== 'undefined')
+                    mapObject.setValueCase(this.x, this.y,2);
+            }
+        }
     }
 
     moved() {
-        if(typeof mapObject !== 'undefined')
-            mapObject.setHoverCase(this.x, this.y);
+        if(this.enabled===true) {
+            if(typeof mapObject !== 'undefined')
+                mapObject.setHoverCase(this.x, this.y);
+        }
+    }
+
+    dragged() {
+        this.moved();
+    }
+
+    placeTower(level) {
+        if(getPrice(level) <= coinObject.value && coinObject.value>0) {
+            this.enabled = true;
+            this.placeTowerLevelCurrent = level;
+        }
     }
 
 }

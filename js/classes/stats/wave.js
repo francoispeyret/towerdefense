@@ -10,14 +10,13 @@ class Wave extends Stat {
 
     update() {
         if (frameCount % this.spawnCycle === 0) {
-            console.log(this.spawnMax);
             if(this.spawnEnemy()) {
 
             }
             else if(
                 this.getWaveEnd() === true &&
                 this.value < this.max
-                ) {
+            ) {
                 this.setNewWave();
             }
             else if (

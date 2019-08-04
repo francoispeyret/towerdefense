@@ -12,7 +12,7 @@ let timerObject;
 let waveObject;
 let particules = [];
 let enemies = [];
-let GameName = 'TowerDefense';
+const GameName = 'TowerDefense';
 
 let stop = false;
 let gameState = 'Ending';
@@ -22,7 +22,6 @@ let gameState = 'Ending';
 // init
 function setup() {
     frameRate(60);
-    // creation d'un canvas à taille de la fenêtre
     createCanvas(1200, 600);
 
     initialGameEngine();
@@ -31,6 +30,20 @@ function setup() {
 function draw() {
 
     background(30);
+
+    // MAP display
+    mapObject.show();
+    timerObject.show();
+
+    // Enemies display
+    for(let enemy of enemies) {
+        enemy.show();
+    }
+
+    // Particules display
+    for(let particule of particules) {
+        particule.show();
+    }
 
     if(gameState === 'Loading') {
 
@@ -46,34 +59,20 @@ function draw() {
     } else if (gameState === 'Playing') {
         // STATS
         waveObject.update();
-        // MAP
-        mapObject.show();
-
-        // Particules
-        for(let p = 0; p < particules.length; p++) {
-            particules[p].show();
-            particules[p].update();
-            if(
-                particules[p].getPosition().x + particules[p].w < 0 ||
-                particules[p].getPosition().x - particules[p].w > width ||
-                particules[p].getPosition().y + particules[p].w < 0 ||
-                particules[p].getPosition().y - particules[p].w > height
-            ) {
-                particules.splice(p,1);
-                p--;
-            }
-        }
-
-        // mis à jour curseur
-        cursorObject.update();
-        cursorObject.show();
-        timerObject.show();
-
-        // enemies
+        // Enemies Update
         for(let enemy of enemies) {
             enemy.update();
-            if(typeof enemy !== 'undefined')
-                enemy.show();
+        }
+        for(let p = 0; p < particules.length; p++) {
+            particules[p].update();
+            if(typeof particules[p] !== 'undefined') {
+                if(
+                    particules[p].isVisible() === true
+                ) {
+                    particules.splice(p,1);
+                    p--;
+                }
+            }
         }
 
     } else if (gameState === 'Ending') {
@@ -88,6 +87,7 @@ function draw() {
 
     }
 
+
     if(stop===true) {
         background(0,150);
         fill(255);
@@ -98,7 +98,8 @@ function draw() {
         text('PAUSE', width / 2, height / 2);
     }
 
-
+    // mis à jour curseur
+    cursorObject.update();
 }
 
 function initialGameEngine() {
@@ -142,4 +143,8 @@ function mouseReleased() {
 
 function mouseMoved() {
     cursorObject.moved();
+}
+
+function mouseDragged() {
+    cursorObject.dragged();
 }

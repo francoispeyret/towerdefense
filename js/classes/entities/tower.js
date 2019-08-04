@@ -7,7 +7,7 @@ class Tower extends Case {
         this.attack = 20;
         this.speed = 5;
         this.cycle = 15;
-        this.anticipation = this.speed * this.cycle;
+        this.anticipation = this.speed * (this.cycle/2);
         this.attackDistance = this.w*3;
 
         this.dir = this.center.copy();
@@ -15,11 +15,13 @@ class Tower extends Case {
     }
 
     show() {
-        noStroke();
         if (this.hovered) {
-            fill(0, 200, 0, 30);
+            strokeWeight(2);
+            stroke(0, 100, 200);
+            fill(0, 100, 200, 30);
             rect(this.x * this.w, this.y * this.h, this.w, this.h);
         }
+        noStroke();
         fill(200, 200, 200);
         ellipse(this.center.x, this.center.y, this.w * .5, this.w * .5);
 

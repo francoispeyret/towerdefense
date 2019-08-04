@@ -19,12 +19,9 @@ class Case {
 
     show() {
 
-        stroke(0);
-        strokeWeight(0.25);
-
+        noStroke();
+        noFill();
         if(this.value === 1 || this.value === 4) {
-            fill(255);
-        } else if(this.value === 0) {
             fill(50);
         } else if(this.value === 2) {
             fill(255,0,0);
@@ -39,15 +36,15 @@ class Case {
                 fill(0,200,0,30);
             }
             else {
-                stroke(200,50,50,200);
-                fill(200,50,50,30);
+                stroke(0,0,0,30);
+                fill(0,0,0,15);
             }
             rect(this.x*this.w + 1, this.y*this.h + 1, this.w - 2, this.h - 2);
         }
     }
 
     update() {
-        // seulement pour les Tower en théorie...
+        // Only for Tower by default
     }
 
     setValue(val) {
