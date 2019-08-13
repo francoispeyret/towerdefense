@@ -3,7 +3,7 @@ class Wave extends Stat {
     constructor(name, value, max) {
         super(name, value, max);
 
-        this.spawnCycle = 90;
+        this.spawnCycle = 45;
         this.spawnMax = 1;
         this.spawnCount = 0;
     }

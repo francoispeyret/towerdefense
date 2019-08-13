@@ -22,13 +22,15 @@ class Cursor {
     released() {
         if(this.enabled===true) {
             this.enabled = false;
+            mapObject.setNoHoverCase();
             removeActiveBuying();
             const level = this.placeTowerLevelCurrent;
-            if(getPrice(level) <= coinObject.value && coinObject.value>0) {
-                console.log(getPrice(level));
-                coinObject.incrementValue(-getPrice(level));
-                if(typeof mapObject !== 'undefined')
-                    mapObject.setValueCase(this.x, this.y,2);
+            if(getPrice(level) <= coinObject.value && coinObject.value > 0) {
+                if(typeof mapObject !== 'undefined') {
+                    if(mapObject.setValueCase(this.x, this.y, 2, level)) {
+                        coinObject.incrementValue(-getPrice(level));
+                    }
+                }
             }
         }
     }

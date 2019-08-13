@@ -2,13 +2,14 @@ class Enemy {
 
     constructor(life) {
 
-        this.id = parseInt(Math.random(100)*100);
+        this.id = parseInt(Math.random(850)*1540);
         this.x = -100;
         this.y = -100;
         this.w    = 50;
         this.cycle = 40;
         this.life = life;
         this.lifeMax = life;
+        this.timingLife = parseInt(random(0,30));
 
         // Init enemy position
         this.findNextPosition(true);
@@ -21,6 +22,8 @@ class Enemy {
             x: Math.floor(this.x / mapObject.w),
             y: Math.floor(this.y / mapObject.h)
         }
+
+        this.waving = 0;
     }
 
     show() {
@@ -30,7 +33,7 @@ class Enemy {
         } else {
             fill(0,200,0,);
         }
-        ellipse(this.x, this.y, this.w, this.w);
+        ellipse(this.x + this.waving, this.y + this.waving, this.w, this.w);
 
         // barre de vie
         noFill();
@@ -43,7 +46,7 @@ class Enemy {
             else
                 stroke(0,255,0);
             arc(
-                this.x,this.y,this.w,this.w,
+                this.x + this.waving,this.y + this.waving,this.w,this.w,
                 0,
                 map(this.life, 0, this.lifeMax, 0, TWO_PI),
                 OPEN
@@ -58,6 +61,8 @@ class Enemy {
             //this.y = (this.lastMove.y + this.nextMove.y) * mapObject.h + mapObject.h / 2;
         }
         this.animeMove();
+        this.waving = map(sin(this.timingLife/10), 0, 1, -2, 2);
+        this.timingLife++;
     }
 
     animeMove() {

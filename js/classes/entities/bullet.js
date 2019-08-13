@@ -1,11 +1,16 @@
 class Bullet extends Particule {
-    constructor(o,v,type) {
+    constructor(o,v,type, damage) {
         super(o,v,type);
         this.id = parseInt(Math.random(100)*100);
 
         this.w = 15;
 
-        this.damage = random(10,30) * random(1,3);
+        if(typeof damage !== 'undefined' && typeof damage.min !== 'undefined') {
+            this.damage = random(damage.min, damage.max) * random(1, damage.mult);
+        } else {
+            console.error('Bullet.damage value is undefined');
+            this.damage = 0;
+        }
         this.impact = false;
         this.impactAnimationDuration = 10;
     }
@@ -27,7 +32,7 @@ class Bullet extends Particule {
             this.p.add(this.v);
             if(enemies.length > 0) {
                 for(let e = 0; e < enemies.length; e++) {
-                    if(int(dist(this.p.x, this.p.y, enemies[e].x, enemies[e].y)) < enemies[e].w / 2 - this.w) {
+                    if(int(dist(this.p.x, this.p.y, enemies[e].x, enemies[e].y)) < enemies[e].w / 2) {
                         enemies[e].updateLife(this.damage);
                         this.impact = true;
                         break;

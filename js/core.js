@@ -123,7 +123,7 @@ function initialGameEngine() {
     lifeObject = new Life('life',0,10);
     lifeObject.init();
 
-    coinObject = new Coin('Coin',25,0);
+    coinObject = new Coin('Coin',500,0);
     coinObject.init();
 
 

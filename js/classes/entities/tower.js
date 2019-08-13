@@ -1,15 +1,15 @@
 class Tower extends Case {
 
-    constructor(x, y, value) {
+    constructor(x, y, value, level) {
         super(x, y, value);
 
+        this.level = level;
         this.life = 100;
         this.attack = 20;
         this.speed = 5;
         this.cycle = 15;
         this.anticipation = this.speed * (this.cycle/2);
         this.attackDistance = this.w*3;
-
         this.dir = this.center.copy();
 
     }
@@ -23,16 +23,13 @@ class Tower extends Case {
         }
         noStroke();
         fill(200, 200, 200);
-        ellipse(this.center.x, this.center.y, this.w * .5, this.w * .5);
+        const waving = map(sin(frameCount/10), 0, 1, -0.66, 0.66);
+        ellipse(this.center.x, this.center.y + waving, this.w * .5, this.w * .5);
 
-        /*
-        // lazer
-        push();
-        stroke(255,0,0);
-        strokeWeight(1);
-        line(this.x * this.w + this.w / 2, this.y * this.w + this.w / 2, this.dir.x, this.dir.y);
-        pop();
-        */
+        fill(30);
+        textAlign(CENTER);
+        textSize(12);
+        text(this.level, this.center.x, this.center.y + waving);
     }
 
     update() {
@@ -43,11 +40,17 @@ class Tower extends Case {
 
             if(typeof target.x !== 'undefined') {
                 this.dir.set(target.x * this.w + this.w / 2, target.y * this.w + this.w / 2);
+                let damage = {
+                    min: 5 * (this.level / 5 + 1),
+                    max: 15 * (this.level / 5 + 1),
+                    mult: 2.5 * (this.level / 5 + 1)
+                }
                 particules.push(
                     new Bullet(
                         origine,
                         target.limit(this.speed),
-                        'test'
+                        'test',
+                        {min: damage.min, max: damage.max, mult: damage.mult}
                     )
                 );
             } else {
@@ -69,6 +72,14 @@ class Tower extends Case {
                     );
                 }
             }
+        }
+        return false;
+    }
+
+    upgrade() {
+        if(this.level > 0 && this.level < 5) {
+            this.level += 1;
+            return true;
         }
         return false;
     }

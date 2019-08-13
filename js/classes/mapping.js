@@ -37,29 +37,44 @@ class Mapping {
         };
     }
 
-    setValueCase(x,y,value) {
+    setValueCase(x,y,value, level) {
         if(this.cases !== null) {
             const cible = this.getCibleCoor(x,y);
             if(cible.x !== false && cible.y !== false) {
-                if(value===2 && typeof this.cases[cible.y][cible.x].value !== 'undefined' && this.cases[cible.y][cible.x].value === 0) {
-                    this.cases[cible.y][cible.x] = new Tower(cible.x, cible.y, value);
+                console.log(this.cases[cible.y][cible.x].value);
+                if( value===2 &&
+                    typeof this.cases[cible.y][cible.x].value !== 'undefined') {
+                        if(this.cases[cible.y][cible.x].value === 0) {
+                            this.cases[cible.y][cible.x] =
+                                new Tower(cible.x, cible.y, value, level);
+                            return true;
+                        } else if (this.cases[cible.y][cible.x].value === 2) {
+                            if(this.cases[cible.y][cible.x].upgrade()===true) {
+                                return true;
+                            }
+                        }
                 }
             }
         }
+        return false;
     }
 
     setHoverCase(x,y) {
         if(this.cases !== null) {
             const cible = this.getCibleCoor(x,y);
-            for(let y = 0; y < this.cases.length; y++) {
-                for(let x = 0; x < this.cases[y].length; x++) {
-                    this.cases[y][x].setHover(false);
-                }
-            }
+            this.setNoHoverCase();
             if(cible.x !== false && cible.y !== false) {
                 if(typeof this.cases[cible.y][cible.x].hovered !== 'undefined') {
                     this.cases[cible.y][cible.x].setHover(true);
                 }
+            }
+        }
+    }
+
+    setNoHoverCase() {
+        for(let y = 0; y < this.cases.length; y++) {
+            for(let x = 0; x < this.cases[y].length; x++) {
+                this.cases[y][x].setHover(false);
             }
         }
     }
